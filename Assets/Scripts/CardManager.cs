@@ -15,6 +15,30 @@ public class CardManager : MonoBehaviour
             }
         }
         fullDeck.Shuffle();
+
+        // distribute cards to containers
+
+        // board containers
+        List<CardContainer> boardContainers = Utility.GetSortedBoardContainers();
+
+        int numberOfContainers = boardContainers.Count;
+        int maxCardsInContainer = 7;
+        int cardsUsed = 0;
+        for (int i = 0; i < numberOfContainers; i++) {
+            for (int j = 0; j < maxCardsInContainer; j++) {
+                boardContainers[i].AddCard(fullDeck[cardsUsed]);
+                cardsUsed++;
+            }
+            maxCardsInContainer--;
+        }
+
+        // deck container
+        CardContainer deckContainer = Utility.GetDeckContainer();
+
+        List<Card> remainingCards = fullDeck.GetRange(cardsUsed - 1, 52 - cardsUsed);
+        foreach (Card card in remainingCards) {
+            deckContainer.AddCard(card);
+        }
     }
 
     void Start()

@@ -20,6 +20,24 @@ public static class Utility
                 return rank + "_" + SuitMap[suit];
         }
 
+        public static List<CardContainer> GetSortedBoardContainers()
+        {
+                List<CardContainer> result = new List<CardContainer>();
+                result.Add(GameObject.Find("FirstBoardHolder").GetComponent<CardContainer>());
+                result.Add(GameObject.Find("SecondBoardHolder").GetComponent<CardContainer>());
+                result.Add(GameObject.Find("ThirdBoardHolder").GetComponent<CardContainer>());
+                result.Add(GameObject.Find("FourthBoardHolder").GetComponent<CardContainer>());
+                result.Add(GameObject.Find("FifthBoardHolder").GetComponent<CardContainer>());
+                result.Add(GameObject.Find("SixthBoardHolder").GetComponent<CardContainer>());
+                result.Add(GameObject.Find("SeventhBoardHolder").GetComponent<CardContainer>());
+                return result;
+        }
+
+        public static CardContainer GetDeckContainer()
+        {
+                return GameObject.Find("DeckHolder").GetComponent<CardContainer>();
+        }
+
         public static void Shuffle<T>(this IList<T> list)
         {
                 System.Random rng = new System.Random();

@@ -17,4 +17,11 @@ public class CardContainer : MonoBehaviour
     void Update()
     {
     }
+
+    public void AddCard(Card card)
+    {
+        cards.Add(card);
+
+        // do any visual rework needed
+    }
 }
