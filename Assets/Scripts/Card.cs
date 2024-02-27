@@ -20,7 +20,7 @@ public class Card
 
     public string GetSpriteName()
     {
-        return Utility.GetSpriteNameFromCardId(card.GetId());
+        return Utility.GetSpriteNameFromCardId(_id);
     }
 
     public void Flip()
