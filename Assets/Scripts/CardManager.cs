@@ -5,6 +5,7 @@ using UnityEngine;
 public class CardManager : MonoBehaviour
 {
     private List<Card> fullDeck = new List<Card>();
+    [SerializeField] public GameObject cardPreFab;
 
     void Awake()
     {

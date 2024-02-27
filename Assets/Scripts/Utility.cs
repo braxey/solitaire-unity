@@ -12,6 +12,19 @@ public static class Utility
         public static readonly string CardBackSpriteName = "card_back";
         public static readonly int[] Ranks = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
 
+        public static void Shuffle<T>(this IList<T> list)
+        {
+                System.Random rng = new System.Random();
+                int n = list.Count;
+                while (n > 1) {
+                        n--;
+                        int k = rng.Next(n + 1);
+                        T value = list[k];
+                        list[k] = list[n];
+                        list[n] = value;
+                }
+        }
+
         public static string GetSpriteNameFromCardId(string cardId)
         {
                 string suit = cardId[0..1];
@@ -19,6 +32,8 @@ public static class Utility
 
                 return rank + "_" + SuitMap[suit];
         }
+
+        // card container getters
 
         public static List<CardContainer> GetSortedBoardContainers()
         {
@@ -36,18 +51,5 @@ public static class Utility
         public static CardContainer GetDeckContainer()
         {
                 return GameObject.Find("DeckHolder").GetComponent<CardContainer>();
-        }
-
-        public static void Shuffle<T>(this IList<T> list)
-        {
-                System.Random rng = new System.Random();
-                int n = list.Count;
-                while (n > 1) {
-                        n--;
-                        int k = rng.Next(n + 1);
-                        T value = list[k];
-                        list[k] = list[n];
-                        list[n] = value;
-                }
         }
 }

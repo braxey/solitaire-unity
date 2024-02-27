@@ -6,22 +6,29 @@ public class CardContainer : MonoBehaviour
 {
     private List<Card> cards = new List<Card>();
 
-    void Awake()
+    public List<Card> GetCards()
     {
-    }
-
-    void Start()
-    {
-    }
-
-    void Update()
-    {
+        return cards;
     }
 
     public void AddCard(Card card)
     {
         cards.Add(card);
-
+        card.SetCurrentCardContainer(this);
         // do any visual rework needed
+    }
+
+    public void RemoveCard(Card card)
+    {
+        int lastIndex = cards.Count - 1;
+        if (cards[lastIndex].GetId() == card.GetId()) {
+            cards.RemoveAt(lastIndex);
+        }
+    }
+
+    public void TransferCardTo(Card card, CardContainer container)
+    {
+        container.AddCard(card);
+        this.RemoveCard(card);
     }
 }
