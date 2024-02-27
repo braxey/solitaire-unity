@@ -14,6 +14,7 @@ public class CardManager : MonoBehaviour
                 fullDeck.Add(new Card(suit, rank));
             }
         }
+        fullDeck.Shuffle();
     }
 
     void Start()
