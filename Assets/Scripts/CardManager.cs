@@ -25,8 +25,10 @@ public class CardManager : MonoBehaviour
         int numberOfContainers = boardContainers.Count;
         int maxCardsInContainer = 7;
         int cardsUsed = 0;
-        for (int i = 0; i < numberOfContainers; i++) {
+        for (int i = numberOfContainers - 1; i >= 0; i--) {
             for (int j = 0; j < maxCardsInContainer; j++) {
+                Debug.Log(i + " " + j);
+
                 boardContainers[i].AddCard(fullDeck[cardsUsed]);
                 cardsUsed++;
             }
@@ -40,6 +42,9 @@ public class CardManager : MonoBehaviour
         foreach (Card card in remainingCards) {
             deckContainer.AddCard(card);
         }
+
+        // clear remaining cards
+        remainingCards.Clear();
     }
 
     void Start()

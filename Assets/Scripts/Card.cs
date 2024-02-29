@@ -34,7 +34,7 @@ public class Card
         if (this._isShown) {
             _spriteRenderer.sprite = Resources.Load<Sprite>(this.GetSpriteName());
         } else {
-            _spriteRenderer.sprite = Resources.Load<Sprite>("card_back");
+            _spriteRenderer.sprite = Resources.Load<Sprite>(Utility.CardBackSpriteName);
         }
     }
 
@@ -46,6 +46,8 @@ public class Card
     public void SetCurrentCardContainer(CardContainer container)
     {
         this._cardContainer = container;
+        this._gameObject.transform.position = container.transform.position;
+        Debug.Log(container.transform.position);
     }
 
     public CardContainer GetCurrentCardContainer()

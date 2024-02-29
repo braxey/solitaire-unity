@@ -5,6 +5,12 @@ using UnityEngine;
 public class CardContainer : MonoBehaviour
 {
     private List<Card> cards = new List<Card>();
+    [SerializeField] private GameObject _holderBackground;
+
+    void Awake()
+    {
+        transform.position = _holderBackground.transform.position;
+    }
 
     public List<Card> GetCards()
     {
