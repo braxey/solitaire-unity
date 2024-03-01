@@ -47,7 +47,6 @@ public class Card
     {
         this._cardContainer = container;
         this._gameObject.transform.position = container.transform.position;
-        Debug.Log(container.transform.position);
     }
 
     public CardContainer GetCurrentCardContainer()

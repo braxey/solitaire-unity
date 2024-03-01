@@ -27,8 +27,6 @@ public class CardManager : MonoBehaviour
         int cardsUsed = 0;
         for (int i = numberOfContainers - 1; i >= 0; i--) {
             for (int j = 0; j < maxCardsInContainer; j++) {
-                Debug.Log(i + " " + j);
-
                 boardContainers[i].AddCard(fullDeck[cardsUsed]);
                 cardsUsed++;
             }
@@ -38,7 +36,7 @@ public class CardManager : MonoBehaviour
         // deck container
         CardContainer deckContainer = Utility.GetDeckContainer();
 
-        List<Card> remainingCards = fullDeck.GetRange(cardsUsed - 1, 52 - cardsUsed);
+        List<Card> remainingCards = fullDeck.GetRange(cardsUsed, 52 - cardsUsed);
         foreach (Card card in remainingCards) {
             deckContainer.AddCard(card);
         }
