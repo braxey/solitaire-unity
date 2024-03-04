@@ -48,8 +48,44 @@ public static class Utility
                 return result;
         }
 
+        public static List<CardContainer> GetSortedCollectionContainers()
+        {
+                List<CardContainer> result = new List<CardContainer>();
+                result.Add(GameObject.Find("FirstCollectedHolder").GetComponent<CardContainer>());
+                result.Add(GameObject.Find("SecondCollectedHolder").GetComponent<CardContainer>());
+                result.Add(GameObject.Find("ThirdCollectedHolder").GetComponent<CardContainer>());
+                result.Add(GameObject.Find("FourthCollectedHolder").GetComponent<CardContainer>());
+                return result;
+        }
+
         public static CardContainer GetDeckContainer()
         {
                 return GameObject.Find("DeckHolder").GetComponent<CardContainer>();
+        }
+
+        public static CardContainer GetShownDeckContainer()
+        {
+                return GameObject.Find("ShownDeckHolder").GetComponent<CardContainer>();
+        }
+
+        public static List<CardContainer> GetAllCardContainers()
+        {
+                List<CardContainer> result = Utility.GetSortedBoardContainers();
+                result.Add(Utility.GetDeckContainer());
+                result.AddRange(Utility.GetSortedCollectionContainers());
+                result.Add(Utility.GetShownDeckContainer());
+                return result;
+        }
+
+        public static Card GetCardFromId(GameObject prefab)
+        {
+                string id = prefab.name;
+                List<CardContainer> containers = Utility.GetAllCardContainers();
+                foreach (CardContainer container in containers) {
+                        if (container.Contains(id)) {
+                                return container.GetCardById(id);
+                        }
+                }
+                return null;
         }
 }

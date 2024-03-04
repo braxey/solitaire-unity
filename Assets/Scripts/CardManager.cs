@@ -7,7 +7,7 @@ public class CardManager : MonoBehaviour
     private List<Card> fullDeck = new List<Card>();
     [SerializeField] public GameObject cardPreFab;
 
-    void Awake()
+    void Start()
     {
         // initialize all the cards
         foreach (string suit in Utility.SuitMap.Keys) {
@@ -41,13 +41,9 @@ public class CardManager : MonoBehaviour
             deckContainer.AddCard(card);
         }
 
+
         // clear remaining cards
         remainingCards.Clear();
-    }
-
-    void Start()
-    {
-        
     }
 
     void Update()
