@@ -5,6 +5,8 @@ using UnityEngine;
 public class Card
 {
     private string _id;
+    private int _rank;
+    private string _suit;
     private bool _isShown;
     private CardContainer _cardContainer;
     private GameObject _gameObject;
@@ -14,6 +16,8 @@ public class Card
     public Card(string suit, int rank)
     {
         _id = suit + rank.ToString();
+        _rank = rank;
+        _suit = suit;
         _isShown = false;
         _gameObject = GameObject.Instantiate(GameObject.Find("CardManager").GetComponent<CardManager>().cardPreFab);
         _gameObject.name = _id;
@@ -25,6 +29,16 @@ public class Card
     public string GetId()
     {
         return _id;
+    }
+
+    public string GetSuit()
+    {
+        return _suit;
+    }
+
+    public int GetRank()
+    {
+        return _rank;
     }
 
     public string GetSpriteName()
@@ -56,8 +70,6 @@ public class Card
     {
         this._cardContainer = container;
         this._gameObject.transform.position = container.transform.position;
-        // Debug.Log(this._gameObject.transform.position);
-        // Debug.Log(container.transform.position);
     }
 
     public CardContainer GetCurrentCardContainer()
@@ -68,5 +80,19 @@ public class Card
     public void SetSortOrder(int order)
     {
         this._spriteRenderer.sortingOrder = order;
+    }
+
+    public void SetPosition(Vector2 position)
+    {
+        this._gameObject.transform.position = position;
+    }
+
+    public bool IsOppositeColor(Card card)
+    {
+        if (_suit == "s" || _suit == "c") {
+            return card.GetSuit() == "d" || card.GetSuit() == "h";
+        } else {
+            return card.GetSuit() == "s" || card.GetSuit() == "c";
+        }
     }
 }

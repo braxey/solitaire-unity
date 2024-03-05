@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class CardContainer : MonoBehaviour
 {
-    private List<Card> cards = new List<Card>();
-    [SerializeField] private GameObject _holderBackground;
+    protected List<Card> cards = new List<Card>();
+    [SerializeField] protected GameObject _holderBackground;
 
     void Awake()
     {
         transform.position = _holderBackground.transform.position;
-        // Debug.Log(_holderBackground.transform.position);
     }
 
     public List<Card> GetCards()
@@ -47,7 +46,6 @@ public class CardContainer : MonoBehaviour
     {
         cards.Add(card);
         card.SetCurrentCardContainer(this);
-        // do any visual rework needed
         this.UpdateSortOrder();
     }
 
@@ -61,6 +59,13 @@ public class CardContainer : MonoBehaviour
             }
         }
         cards.RemoveAt(index);
+        this.UpdateSortOrder();
+
+        if (cards.Count > 0 && this.IsABoardContainer()) {
+            if (!cards[cards.Count - 1].IsShown()) {
+                cards[cards.Count - 1].Flip();
+            }
+        }
     }
 
     public void TransferCardTo(Card card, CardContainer container)
@@ -69,10 +74,37 @@ public class CardContainer : MonoBehaviour
         this.RemoveCard(card);
     }
 
+    public bool isTheSameAs(CardContainer container) {
+        return this.transform.gameObject.name == container.transform.gameObject.name;
+    }
+
+    public bool IsABoardContainer()
+    {
+        return transform.gameObject.name.Contains("BoardHolder");
+    }
+
     private void UpdateSortOrder()
     {
         for (int i = 0; i < cards.Count; i++) {
             cards[i].SetSortOrder(i);
         }
+    }
+
+    public bool TopCardIs(Card card)
+    {
+        return cards.Count > 0 && cards[cards.Count - 1].GetId() == card.GetId();
+    }
+
+    public List<Card> GetCardsToTransfer(Card card)
+    {
+        int index = 0;
+        for (int i = 0; i < cards.Count; i++) {
+            if (cards[i].GetId() == card.GetId()) {
+                index = i;
+                break;
+            }
+        }
+
+        return cards.GetRange(index, cards.Count - index);
     }
 }
