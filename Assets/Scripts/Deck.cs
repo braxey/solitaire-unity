@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Deck : MonoBehaviour
 {
-    [SerializeField] private GameObject _holder;
-    [SerializeField] private CardContainer _container;
+    private SpriteRenderer _spriteRenderer;
+    private BoxCollider2D _collider;
 
     void Awake()
     {
-        transform.position = _holder.transform.position;
+        _spriteRenderer = transform.gameObject.GetComponent<SpriteRenderer>();
+        _collider = transform.gameObject.AddComponent<BoxCollider2D>();
     }
 
     void Update()

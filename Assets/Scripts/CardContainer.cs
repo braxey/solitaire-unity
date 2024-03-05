@@ -10,12 +10,17 @@ public class CardContainer : MonoBehaviour
     void Awake()
     {
         transform.position = _holderBackground.transform.position;
-        Debug.Log(_holderBackground.transform.position);
+        // Debug.Log(_holderBackground.transform.position);
     }
 
     public List<Card> GetCards()
     {
         return cards;
+    }
+
+    public void SetCards(List<Card> _cards)
+    {
+        this.cards = _cards;
     }
 
     public bool Contains(string id)

@@ -810,6 +810,7 @@ GameObject:
   m_Component:
   - component: {fileID: 195439283}
   - component: {fileID: 195439282}
+  - component: {fileID: 195439284}
   m_Layer: 0
   m_Name: CardManager
   m_TagString: Untagged
@@ -845,6 +846,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &195439284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195439281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c833c07573660a43adca1dd6e1c1884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &221570606
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,6 +1036,7 @@ GameObject:
   m_Component:
   - component: {fileID: 357699369}
   - component: {fileID: 357699370}
+  - component: {fileID: 357699372}
   m_Layer: 0
   m_Name: deck
   m_TagString: Untagged
@@ -1097,6 +1111,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &357699372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357699368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6e7e0d40d243964fab776a6ec36eaf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &434476820
 GameObject:
   m_ObjectHideFlags: 0
