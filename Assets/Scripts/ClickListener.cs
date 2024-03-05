@@ -133,9 +133,6 @@ public class ClickListener : MonoBehaviour
 
         // move card to new container and update visuals
         currentContainer.TransferCardTo(_card, destination);
-        // if (!_card.IsShown()) {
-        //     _card.Flip();
-        // }
 
         ((BoardContainer) destination).UpdateCardPlacements();
 
@@ -147,14 +144,9 @@ public class ClickListener : MonoBehaviour
         CardContainer currentContainer = _card.GetCurrentCardContainer();
 
         // move cards to new container and update visuals
-        List<Card> cardsToTransfer = new List<Card>();
-        currentContainer.GetCardsToTransfer(_card);
-
+        List<Card> cardsToTransfer = currentContainer.GetCardsToTransfer(_card);
         foreach (Card c in cardsToTransfer) {
             currentContainer.TransferCardTo(c, destination);
-            // if (!_card.IsShown()) {
-            //     _card.Flip();
-            // }
         }
 
         ((BoardContainer) destination).UpdateCardPlacements();
