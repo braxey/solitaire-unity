@@ -87,12 +87,26 @@ public class ClickListener : MonoBehaviour
 
     private List<CardContainer> getValidMoves(Card card)
     {
-        CardContainer currentContainer = card.GetCurrentCardContainer();
         List<CardContainer> validMoves = new List<CardContainer>();
+
+        if (!card.IsShown() || justFlipped) {
+            return validMoves;
+        }
+
+        CardContainer currentContainer = card.GetCurrentCardContainer();
+
+        if (!currentContainer.IsACollectedContainer() && currentContainer.TopCardIs(card)) {
+            List<CardContainer> collectedContainers = Utility.GetSortedCollectionContainers();
+            foreach (CollectedContainer container in collectedContainers) {
+                if (container.WillTakeCard(card)) {
+                    validMoves.Add(container);
+                }
+            }
+        }
 
         List<CardContainer> boardContainers = Utility.GetSortedBoardContainers();
         foreach (BoardContainer container in boardContainers) {
-            if (currentContainer.isTheSameAs(container) || !card.IsShown() || justFlipped) {
+            if (currentContainer.isTheSameAs(container)) {
                 continue;
             }
 
@@ -107,39 +121,44 @@ public class ClickListener : MonoBehaviour
     private void MoveCard(List<CardContainer> validMoves)
     {
         foreach (CardContainer validMove in validMoves) {
-            if (validMove.GetType() == typeof(BoardContainer)) {
-                CardContainer currentContainer = _card.GetCurrentCardContainer();
+            CardContainer currentContainer = _card.GetCurrentCardContainer();
 
+            if (validMove.GetType() == typeof(CollectedContainer)) {
+                SingleCardTransfer(validMove);
+                break;
+            }
+
+            if (validMove.GetType() == typeof(BoardContainer)) {
                 if (currentContainer.IsABoardContainer()) {
                     if (currentContainer.TopCardIs(_card)) {
-                        SingleCardTransfer(_card, validMove);
+                        SingleCardTransfer(validMove);
                     } else {
-                        BulkTransfer(_card, validMove);
+                        BulkTransfer(validMove);
                     }
                     ((BoardContainer)currentContainer).UpdateCardPlacements();
-                    break;
                 } else {
-                    SingleCardTransfer(_card, validMove);
-                    break;
+                    SingleCardTransfer(validMove);
                 }
-                
+                break;
             }
         }
     }
 
-    private void SingleCardTransfer(Card card, CardContainer destination)
+    private void SingleCardTransfer(CardContainer destination)
     {
         CardContainer currentContainer = _card.GetCurrentCardContainer();
 
         // move card to new container and update visuals
         currentContainer.TransferCardTo(_card, destination);
 
-        ((BoardContainer) destination).UpdateCardPlacements();
+        if (destination.IsABoardContainer()) {
+            ((BoardContainer) destination).UpdateCardPlacements();
+        }
 
         justFlipped = true;
     }
 
-    private void BulkTransfer(Card card, CardContainer destination)
+    private void BulkTransfer(CardContainer destination)
     {
         CardContainer currentContainer = _card.GetCurrentCardContainer();
 

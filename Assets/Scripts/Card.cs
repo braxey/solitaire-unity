@@ -95,4 +95,9 @@ public class Card
             return card.GetSuit() == "s" || card.GetSuit() == "c";
         }
     }
+
+    public bool IsSameSuit(Card card)
+    {
+        return _suit == card.GetSuit();
+    }
 }

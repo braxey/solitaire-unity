@@ -9,6 +9,12 @@ public class CardContainer : MonoBehaviour
 
     void Awake()
     {
+        this.Reset();
+    }
+
+    public void Reset()
+    {
+        cards.Clear();
         transform.position = _holderBackground.transform.position;
     }
 
@@ -81,6 +87,11 @@ public class CardContainer : MonoBehaviour
     public bool IsABoardContainer()
     {
         return transform.gameObject.name.Contains("BoardHolder");
+    }
+
+    public bool IsACollectedContainer()
+    {
+        return transform.gameObject.name.Contains("CollectedHolder");
     }
 
     private void UpdateSortOrder()

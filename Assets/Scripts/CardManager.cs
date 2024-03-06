@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
-    private List<Card> fullDeck = new List<Card>();
+    private List<Card> fullDeck;
     [SerializeField] public GameObject cardPreFab;
 
     void Start()
     {
+        fullDeck = new List<Card>();
+
         // initialize all the cards
         foreach (string suit in Utility.SuitMap.Keys) {
             foreach (int rank in Utility.Ranks) {
@@ -31,6 +33,7 @@ public class CardManager : MonoBehaviour
                 cardsUsed++;
             }
             maxCardsInContainer--;
+            ((BoardContainer) boardContainers[i]).UpdateCardPlacements();
         }
 
         // deck container
@@ -46,8 +49,24 @@ public class CardManager : MonoBehaviour
         remainingCards.Clear();
     }
 
-    void Update()
+    public void RestartGame()
     {
-        
+        // destroy all card objects
+        GameObject[] allCardObjects = GameObject.FindGameObjectsWithTag("Card");
+
+        foreach (GameObject obj in allCardObjects)
+        {
+            Destroy(obj);
+        }
+
+        // reset all containers
+        List<CardContainer> containers = Utility.GetAllCardContainers();
+
+        foreach (CardContainer container in containers) {
+            container.Reset();
+        }
+
+        // reshuffle and deal cards
+        this.Start();
     }
 }
