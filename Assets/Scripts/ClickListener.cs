@@ -8,9 +8,16 @@ public class ClickListener : MonoBehaviour
     private string layerToCheck = "Card";
     private bool justFlipped = false;
 
+    private CardManager cm;
+
+    void Start()
+    {
+        cm = GameObject.Find("CardManager").GetComponent<CardManager>();
+    }
+
     void Update()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && !cm.IsGameOver())
         {
             justFlipped = false;
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -125,6 +132,8 @@ public class ClickListener : MonoBehaviour
 
             if (validMove.GetType() == typeof(CollectedContainer)) {
                 SingleCardTransfer(validMove);
+
+                cm.IsGameOver();
                 break;
             }
 

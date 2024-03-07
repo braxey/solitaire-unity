@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CardManager : MonoBehaviour
 {
     private List<Card> fullDeck;
     [SerializeField] public GameObject cardPreFab;
+    private GameObject winner;
 
     void Start()
     {
         fullDeck = new List<Card>();
+        winner = GameObject.Find("Winner");
+        winner.SetActive(false);
 
         // initialize all the cards
         foreach (string suit in Utility.SuitMap.Keys) {
@@ -68,5 +72,21 @@ public class CardManager : MonoBehaviour
 
         // reshuffle and deal cards
         this.Start();
+    }
+
+    public bool IsGameOver()
+    {
+        List<CardContainer> collected = Utility.GetSortedCollectionContainers();
+        int count = 0;
+        foreach (CardContainer container in collected) {
+            count += container.GetCards().Count;
+        }
+
+        bool gameOver = count == 52;
+        if (gameOver) {
+            winner.SetActive(true);
+        }
+
+        return gameOver;
     }
 }
